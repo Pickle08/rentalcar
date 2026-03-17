@@ -81,11 +81,51 @@ function App() {
     const [mobil, setMobil] = useState([]);
     const [filteredMobil, setFilteredMobil] = useState([]);
 
+    // GANTI BAGIAN INI
     useEffect(() => {
-        axios.get("http://localhost:5000/api/mobil").then((res) => {
-            setMobil(res.data);
-            setFilteredMobil(res.data);
-        });
+        axios
+            .get("http://localhost:5000/api/mobil")
+            .then((res) => {
+                setMobil(res.data);
+                setFilteredMobil(res.data);
+            })
+            .catch((err) => {
+                console.warn(
+                    "Backend offline, menggunakan data dummy untuk demo."
+                );
+                // Data dummy agar katalog tidak kosong di Vercel
+                const dataDummy = [
+                    {
+                        id: 1,
+                        nama: "Toyota Avanza Veloz",
+                        lokasi: "Jember",
+                        harga: 350000,
+                        gambar: "https://images.unsplash.com/photo-1590362891991-f776e747a588?q=80&w=1000&auto=format&fit=crop", // Contoh gambar online
+                        transmisi: "Manual",
+                        kapasitas: 7,
+                    },
+                    {
+                        id: 2,
+                        nama: "Honda Civic RS",
+                        lokasi: "Jember",
+                        harga: 600000,
+                        gambar: "https://images.unsplash.com/photo-1606152421802-db97b9c7a11b?q=80&w=1000&auto=format&fit=crop",
+                        transmisi: "Otomatis",
+                        kapasitas: 5,
+                    },
+                    {
+                        id: 3,
+                        nama: "Mitsubishi Xpander",
+                        lokasi: "Jember",
+                        harga: 400000,
+                        gambar: "https://images.unsplash.com/photo-1632245889029-e406fbda3b0c?q=80&w=1000&auto=format&fit=crop",
+                        transmisi: "Otomatis",
+                        kapasitas: 7,
+                    },
+                ];
+                setMobil(dataDummy);
+                setFilteredMobil(dataDummy);
+            });
     }, []);
 
     const handleSearch = (query) => {
