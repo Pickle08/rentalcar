@@ -14,7 +14,7 @@ const Navbar = () => {
                     <Link
                         to="/"
                         className="text-orange-500 hover:text-orange-600">
-                        Rent
+                        Home
                     </Link>
                     <Link
                         to="/rental"

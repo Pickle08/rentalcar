@@ -13,14 +13,14 @@ import Rental from "./pages/Rental";
 
 function HomePage({ filteredMobil, handleSearch }) {
     return (
-        <div className="min-h-screen bg-white">
+        // Gunakan Fragment <> atau div tanpa Footer di sini
+        <div className="bg-white">
             <Navbar />
             <Hero />
             <HowItWorks />
             {/* Section Katalog */}
             <div id="catalog" className="py-20">
                 <div className="container mx-auto px-6">
-                    {/* Header Katalog dengan Subtitle */}
                     <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
                         <div>
                             <h1 className="text-4xl md:text-5xl font-black text-gray-900 mt-2">
@@ -34,7 +34,6 @@ function HomePage({ filteredMobil, handleSearch }) {
                         </p>
                     </div>
 
-                    {/* Grid Mobil dengan Spacing yang lebih lega */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                         {filteredMobil.length > 0 ? (
                             filteredMobil.map((item) => (
@@ -74,7 +73,7 @@ function HomePage({ filteredMobil, handleSearch }) {
                     </div>
                 </div>
             </div>
-            <Footer />
+            {/* Footer DIHAPUS dari sini agar tidak double di Home */}
         </div>
     );
 }
@@ -83,7 +82,6 @@ function App() {
     const [mobil, setMobil] = useState([]);
     const [filteredMobil, setFilteredMobil] = useState([]);
 
-    // GANTI BAGIAN INI
     useEffect(() => {
         axios
             .get("http://localhost:5000/api/mobil")
@@ -92,17 +90,14 @@ function App() {
                 setFilteredMobil(res.data);
             })
             .catch((err) => {
-                console.warn(
-                    "Backend offline, menggunakan data dummy untuk demo."
-                );
-                // Data dummy agar katalog tidak kosong di Vercel
+                console.warn("Backend offline, menggunakan data dummy.");
                 const dataDummy = [
                     {
                         id: 1,
                         nama: "Toyota Avanza Veloz",
                         lokasi: "Jember",
                         harga: 350000,
-                        gambar: "https://images.unsplash.com/photo-1590362891991-f776e747a588?q=80&w=1000&auto=format&fit=crop", // Contoh gambar online
+                        gambar: "https://images.unsplash.com/photo-1590362891991-f776e747a588?q=80&w=1000&auto=format&fit=crop",
                         transmisi: "Manual",
                         kapasitas: 7,
                     },
@@ -138,21 +133,28 @@ function App() {
     };
 
     return (
-        <Routes>
-            <Route
-                path="/"
-                element={
-                    <HomePage
-                        filteredMobil={filteredMobil}
-                        handleSearch={handleSearch}
+        // Gunakan wrapper flex-col agar footer tetap di bawah meski konten sedikit
+        <div className="flex flex-col min-h-screen">
+            <div className="flex-grow">
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <HomePage
+                                filteredMobil={filteredMobil}
+                                handleSearch={handleSearch}
+                            />
+                        }
                     />
-                }
-            />
-            <Route path="/mobil/:id" element={<CarDetail />} />
-            <Route path="/rental" element={<Rental />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/contact" element={<Contact />} />
-        </Routes>
+                    <Route path="/mobil/:id" element={<CarDetail />} />
+                    <Route path="/rental" element={<Rental />} />
+                    <Route path="/blog" element={<Blog />} />
+                    <Route path="/contact" element={<Contact />} />
+                </Routes>
+            </div>
+            {/* TARUH FOOTER DI SINI: Di luar Routes agar muncul di semua halaman */}
+            <Footer />
+        </div>
     );
 }
 
