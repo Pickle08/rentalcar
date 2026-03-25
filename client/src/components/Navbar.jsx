@@ -34,16 +34,6 @@ const Navbar = () => {
                 </div>
 
                 {/* Kanan: Sign up & Sign in */}
-                <div className="flex items-center gap-6">
-                    <Link
-                        to="/signup"
-                        className="font-medium text-gray-700 hover:text-orange-500">
-                        Sign up
-                    </Link>
-                    <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-xl font-semibold transition">
-                        Sign in
-                    </button>
-                </div>
             </div>
         </nav>
     );

@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import CarCard from "./components/CarCard";
 import HowItWorks from "./components/HowItWorks";
+import Footer from "./components/Footer";
 import Blog from "./pages/Blog";
 import Contact from "./pages/Contact";
 import CarDetail from "./pages/CarDetail";
@@ -73,6 +74,7 @@ function HomePage({ filteredMobil, handleSearch }) {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }
